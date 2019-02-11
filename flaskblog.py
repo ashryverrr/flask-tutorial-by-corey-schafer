@@ -34,10 +34,14 @@ def register():
    else:    
        return render_template('register.html', title='Register', form=form)
 
-@app.route("/login")
+@app.route("/login", methods=['GET', 'POST'])
 def login():
    form = LoginForm()
-   return render_template('login.html', title='Login', form=form)
+   if form.validate_on_submit():
+       flash(f'Account Created for {form.username.data}!', 'success')
+       return redirect(url_for('home'))
+   else:    
+       return render_template('login.html', title='Login', form=form)
 
 
 if __name__ == '__main__':
