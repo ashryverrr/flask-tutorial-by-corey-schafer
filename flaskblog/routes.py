@@ -1,11 +1,12 @@
+import secrets
+import os
+from PIL import Image
 from flask import render_template, url_for, flash, redirect, request
 from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from flaskblog.models import User, Post
 from flaskblog import app, db, bcrypt
 from flask_login import login_user, current_user,logout_user, login_required
-import secrets
-import os
-from PIL import Image
+
 
 posts = [
     {
@@ -77,8 +78,7 @@ def save_picture(form_picture):
     i = Image.open(form_picture)
     i = thumbnail(output_size)
     i.save(picture_path)
-    #form_picture.save(picture_path)
-
+   
     return picture_fn
 
 @app.route("/account", methods=['GET', 'POST'])
